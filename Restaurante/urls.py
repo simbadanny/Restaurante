@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Aplicacion.Restaurante.urls')),
     path('/', login_required(LoginView.as_view(template_name='registration/login.html')), name='login'),
-    path('accounts/login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout',logout_then_login, name = 'logout'),
 ]
 if settings.DEBUG:
