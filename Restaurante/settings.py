@@ -133,13 +133,6 @@ LOGOUT_REDIRECT_URL = reverse_lazy('login')
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# Directorios donde se encuentran tus archivos estáticos
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'Restaurante/static'),
-]
-
-# Ruta donde se recolectarán los archivos estáticos para producción
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
