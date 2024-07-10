@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', default='sdfds66fs6d6f6fds6f6')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os environ
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
-RENDER_EXTERNA_HOSTNAME = os.environ.get(RENDER_EXTERNA_HOSTNAME)
+RENDER_EXTERNA_HOSTNAME = os.environ.get('RENDER_EXTERNA_HOSTNAME')
 if RENDER_EXTERNA_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNA_HOSTNAME)
 
