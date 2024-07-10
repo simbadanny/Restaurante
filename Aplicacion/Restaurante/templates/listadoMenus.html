@@ -1,0 +1,289 @@
+{% extends "plantilla.html" %}
+{% block contenido %}
+{% load static %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Listado Menus</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="tbl_menus" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NOMBRE</th>
+                                <th>DESCRIPCION</th>
+                                <th>CATEGORIA</th>
+                                <th>DISPONIBILIDAD</th>
+                                <th>PRECIO</th>
+                                <th>FOTO</th>
+                                <th>ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for menu in menus %}
+                            <tr>
+                                <td>{{ menu.menu_id }}</td>
+                                <td>{{ menu.nombre_menu }}</td>
+                                <td>{{ menu.descripcion_menu }}</td>
+                                <td>{{ menu.categoria_menu }}</td>
+                                <td>{{ menu.disponibilidad_menu }}</td>
+                                <td>{{ menu.precio_menu }}</td>
+                                <td>
+                                  {% if menu.fotos_menu %}
+                                      <a href="{{ menu.fotos_menu.url }}" target="_blank" >
+                                        <img src="{{ menu.fotos_menu.url }}" alt="" height="50px">
+                                      </a>
+                                    {% else %}
+                                      <b>N/A</b>
+                                    {% endif %}
+                                </td>
+                                <td>
+
+          												<a href="/editarMenus/{{menu.menu_id}}" class="btn btn-warning">
+          												    <i class="fas fa-edit"></i>
+          												</a>
+          												<a href="javascript:void(0)" onclick="eliminarMenus('{{menu.menu_id}}');" class="btn btn-danger">
+          												    <i class="fas fa-trash-alt"></i>
+          												</a>
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <i class="fas fa-plus"></i> Agregar Menu
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ingrese el Menu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/guardarMenus/" method="post" enctype="multipart/form-data" id="frm_nuevo_menu">
+    {% csrf_token %}
+    <div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-clipboard-list"></i> Registrar Menús</div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="nombre_menu"><i class="fas fa-utensils"></i> <b>NOMBRE PLATO</b></label>
+                            <input type="text" class="form-control" id="nombre_menu" name="nombre_menu" oninput="soloLetras(this)" placeholder="Ingrese nombre Plato" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="categoria_menu"><i class="fas fa-tags"></i> <b>Categoría</b></label>
+                            <select class="form-control" id="categoria_menu" name="categoria_menu" required>
+                                <option value="" disabled selected>Seleccione categoría</option>
+                                <option value="almuerzos">Almuerzos</option>
+                                <option value="platos_tradicionales">Platos Tradicionales</option>
+                                <option value="mariscos">Mariscos</option>
+                                <option value="parrilladas">Parrilladas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="descripcion_menu"><i class="far fa-comment-alt"></i><b>Descripción Plato</b></label>
+                            <textarea name="descripcion_menu" id="descripcion_menu" oninput="soloLetras(this)" rows="3" class="form-control" placeholder="Ingrese la Descripción" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                          <label for="disponibilidad_menu"><i class="fas fa-check-circle"></i><b>Disponibilidad o</b> <i class="fas fa-times-circle"></i> <b>No Disponible</b></label>
+                            <select class="form-control" id="disponibilidad_menu" name="disponibilidad_menu" required>
+                                <option value="" disabled selected>Seleccione disponibilidad</option>
+                                <option value="disponible">Disponible</option>
+                                <option value="no_disponible">No disponible</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="precio_menu"><i class="fas fa-dollar-sign"></i><b>Precio Plato</b></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input type="number" id="precio_menu" name="precio_menu" oninput="soloNumeros(this)" class="form-control" placeholder="Ingrese Precio Plato" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="fotos_menu"><b><i class="far fa-image"></i><b>FOTOGRAFIA PLATO</b></label>
+                            <input type="file" name="fotos_menu" id="fotos_menu" accept="image/*" value="" class="form-control">
+                        </div>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#fotos_menu").fileinput({
+                                // configuración adicional del plugin de file input
+                                language: 'es',
+                                // otras opciones según tus necesidades
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="modal-footer">
+                <button type="submit" form="frm_nuevo_menu" class="btn btn-secondary">Guardar</button>
+                <button type="reset" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#frm_nuevo_menu").validate({
+            rules: {
+                "nombre_menu": {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50
+                },
+                "descripcion_menu": {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 200
+                },
+                "categoria_menu": {
+                    required: true
+                },
+                "disponibilidad_menu": {
+                    required: true
+                },
+                "precio_menu": {
+                    required: true,
+                    number: true,
+                    min: 0.01,
+                    max: 10000
+                },
+                "fotos_menu": {
+                    required: true,
+                    extension: "jpg|jpeg|png|gif"
+                }
+
+            },
+            messages: {
+                "nombre_menu": {
+                    required: "Debe ingresar el nombre del menú",
+                    minlength: "El nombre del menú debe tener al menos 3 caracteres",
+                    maxlength: "El nombre del menú no puede tener más de 50 caracteres"
+                },
+                "descripcion_menu": {
+                    required: "Debe ingresar la descripción del menú",
+                    minlength: "La descripción debe tener al menos 10 caracteres",
+                    maxlength: "La descripción no puede tener más de 200 caracteres"
+                },
+                "categoria_menu": {
+                    required: "Por favor seleccione la categoría del menú"
+                },
+                "disponibilidad_menu": {
+                    required: "Por favor seleccione la disponibilidad del menú"
+                },
+                "precio_menu": {
+                    required: "Debe ingresar el precio del menú",
+                    number: "El precio debe ser un número válido",
+                    min: "El precio debe ser al menos 0.01",
+                    max: "El precio no puede exceder los 10000"
+                },
+                "fotos_menu": {
+                    required: "Debe seleccionar una imagen para el menú",
+                    extension: "Por favor seleccione un archivo con una extensión válida (jpg, jpeg, png, gif)"
+                }
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function soloNumeros(input) {
+        // Reemplaza cualquier carácter que no sea un dígito numérico con una cadena vacía
+        input.value = input.value.replace(/\D/g, '');
+    }
+
+    function soloLetras(input) {
+        // Reemplaza cualquier carácter que no sea una letra o espacio con una cadena vacía
+        input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
+    }
+</script>
+<script>
+    function eliminarMenus(menu_id) {
+        swal({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            buttons: {
+                cancel: {
+                    visible: true,
+                    text: 'No, cancelar',
+                    className: 'btn btn-secondary'
+                },
+                confirm: {
+                    text: 'Sí, eliminarlo',
+                    className: 'btn btn-danger'
+                }
+            }
+        }).then((willDelete) => {
+            if (willDelete) {
+                window.location.href = '/eliminarMenus/' + menu_id;
+            } else {
+                swal("¡El Menu está seguro!", {
+                    icon: "info",
+                    buttons: {
+                        confirm: {
+                            className: 'btn btn-success'
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+ //let table = new DataTable('#tbl_clientes');
+  $('#tbl_menus').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+      {
+          extend: 'pdfHtml5',
+          messageTop: 'REPORTE DE PARTICIPANTES - DJANGO Y DATATABLES.'
+      },
+      'print',
+      'csv'
+    ],
+    language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json" // Configura el idioma a español
+        }
+    });
+
+</script>
+
+
+{% endblock %}

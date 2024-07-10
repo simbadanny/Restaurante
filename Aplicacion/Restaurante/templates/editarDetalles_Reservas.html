@@ -1,0 +1,105 @@
+{% extends "./plantilla.html" %}
+{% block contenido %}
+{% load static %}
+<div class="row">
+  <div class="form-group col-md-8">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form action="{% url 'procesarActualizacionDetalles_Reservas' %}" enctype="multipart/form-data" method="post" id="frm_nuevo_detallesr">
+          {% csrf_token %}
+          <input type="hidden" name="detalle_reserva_id" value="{{ detalle_Reservas.detalle_reserva_id }}">
+          <div class="modal-body">
+              <div class="row">
+                  <div class="form-group col-md-6">
+                      <label for="reserva_id_reserva"><i class="fas fa-shopping-cart"></i> <b>Ventas:</b></label>
+                      <select class="form-control selectpicker" data-live-search="true" data-live-search-style="startsWith" name="reserva_id_reserva" id="reserva_id_reserva" required data-live-search-placeholder="Buscar categoría...">
+                        <option value="">Seleccione Total Ventas</option>
+                        {% for reserva in reservas %}
+                          <option value="{{ reserva.reserva_id }}">{{ reserva.fecha_reserva }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="menu_id_menu"><i class="fas fa-utensils"></i> <b>MENÚS:</b></label>
+                      <select class="form-control selectpicker" data-live-search="true" data-live-search-style="startsWith" name="menu_id_menu" id="menu_id_menu" required data-live-search-placeholder="Buscar proveedor...">
+                        <option value="">Seleccione El Menú</option>
+                        {% for menu in menus %}
+                          <option value="{{ menu.menu_id }}">{{ menu.categoria_menu }}</option>
+                        {% endfor %}
+                      </select>
+                  </div>
+              </div>
+              <script type="text/javascript">
+                  document.getElementById("reserva_id_reserva").value="{{detalle_Reservas.reserva.reserva_id}}";
+                </script>
+
+                <script type="text/javascript">
+                  document.getElementById("menu_id_menu").value="{{detalle_Reservas.menu.menu_id}}";
+              </script>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" name="button" class="btn btn-warning">
+              &nbsp;&nbsp;&nbsp; Actualizar &nbsp;&nbsp;&nbsp;
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'listadoDetalles_Reservas' %}" class="btn btn-danger">
+              Cancelar
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-md-3">
+    <div class="card card-profile card-secondary">
+      <div class="card-header" style="background-image: url('{% static 'assets/img/blogpost.jpg' %}');">
+        <div class="profile-picture">
+          <div class="avatar avatar-xl">
+            <img src="{% static 'assets/img/profile.jpg' %}" alt="Profile Image" class="avatar-img rounded-circle">
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="user-profile text-center">
+          <div class="name">
+            <span>{{ clientes.nombre_cli }}</span>
+          </div>
+          <div class="job">Cliente de La Casita del Sabor 🍽️🏠</div>
+          <div class="">
+            <span>{{ clientes.email_cli }}</span>
+          </div>
+          <div class="job">
+            <p>"En esta sección, editarás los datos de <span><strong>{{ clientes.nombre_cli }} {{ clientes.apellido_cli }}</strong></span>. Por favor, asegúrate de ingresar la información correcta."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#frm_nuevo_detallesr").validate({
+            rules: {
+                "reserva_id_reserva": {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 10 // Ajusta la longitud máxima según tus necesidades
+                },
+                "menu_id_menu": {
+                    required: true
+                }
+            },
+            messages: {
+                "reserva_id_reserva": {
+                    required: "Debe seleccionar la reserva",
+                    minlength: "El ID de reserva debe tener al menos 1 carácter",
+                    maxlength: "El ID de reserva no puede tener más de 10 caracteres"
+                },
+                "menu_id_menu": {
+                    required: "Debe seleccionar el menú"
+                }
+            }
+        });
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,311 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{% static 'assetscli/images/logo.ico' %}" type="">
+
+  <title> La Casita del Sabor </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'assetscli/css/bootstrap.css' %}" />
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- nice select  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-ZKss5MhA14d2fZ7k1T5X00b2J6h9b0B36kHaWfqLky4uPthF08zG/vyMwS9qZY2nYbOyfKwGfKU1Q6nI9t+eyA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'assetscli/css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'assetscli/css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'assetscli/css/responsive.css' %}" rel="stylesheet" />
+
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="{% static 'assetscli/images/hero-bg.jpg' %}" alt="">
+    </div>
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              La Casita del Sabor
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  mx-auto ">
+              <li class="nav-item active">
+                <a class="nav-link" href="">Inicio <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'listadoOrdenMenus'%}">Menú</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="book.html">Mesas</a>
+              </li>
+            </ul>
+            <div class="user_option">
+              <a href="" class="order_online">
+                Iniciar Sesion
+              </a>
+              <a href="" class="order_online">
+                Registrate
+              </a>
+              <a href="{% url 'login'%}" class="user_link">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class="slider_section ">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7 col-lg-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      Tenemos Promociones
+                    </h1>
+                    <p style="text-align: justify;">
+                      ¡Explora el placer de sabores únicos con nuestras increíbles promociones en platos deliciosos! 🍝🍔 Desde pastas artesanales hasta hamburguesas gourmet, ¡cada bocado es una experiencia inolvidable! No esperes más para disfrutar momentos deliciosos en nuestro restaurante. ¡Ven y déjate cautivar por la magia de nuestros sabores! ✨
+                    </p>
+                    <div class="btn-box">
+                      <a href="" class="btn1">
+                        ¡Ordena ahora!
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item ">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7 col-lg-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      Lo Mejor en Parrilladas
+                    </h1>
+                    <p style="text-align: justify;">
+                      ¡Disfruta de las mejores parrilladas con nuestras promociones imperdibles! 🍖 Saborea jugosas carnes asadas y acompañamientos irresistibles en nuestro restaurante. ¡Ven y déjate cautivar por la magia de nuestros sabores! ✨                    </p>
+                    <div class="btn-box">
+                      <a href="" class="btn1">
+                        ¡Ordena ahora!
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7 col-lg-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      Reserva tu Mesa Para tu Familia
+                    </h1>
+                    <p style="text-align: justify;">
+                      ¡Reserva tu mesa para disfrutar de momentos especiales en familia! 🍽️ Déjate sorprender por nuestros sabores únicos y nuestro cálido servicio. ¡Haz de cada comida una experiencia inolvidable con nosotros! 🎉                    </p>
+                    <div class="btn-box">
+                      <a href="" class="btn1">
+                        ¡Ordena ahora!
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <ol class="carousel-indicators">
+            <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+            <li data-target="#customCarousel1" data-slide-to="1"></li>
+            <li data-target="#customCarousel1" data-slide-to="2"></li>
+          </ol>
+        </div>
+      </div>
+
+    </section>
+
+
+  </div>
+  <div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="bg-light p-4 rounded">
+                <h2 class="mb-4">La Mision</h2>
+                <p style="text-align: justify;">🍽️ La misión de La Casita del Sabor es ofrecer una experiencia culinaria única, preservando la comida tradicional con un enfoque en el cuidado de la salud. Nos esforzamos por innovar continuamente, incorporando las opiniones de nuestros clientes para garantizar su máxima satisfacción. 💡</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <img src="{% static 'assetscli/images/mi.jpg' %}" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+    <section class="about_section layout_padding">
+      <div class="container  ">
+
+        <div class="row">
+          <div class="col-md-6 ">
+            <div class="img-box">
+              <img src="{% static 'assetscli/images/mi.jpg' %}" class="img-fluid" alt="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="detail-box">
+              <div class="heading_container">
+                <h2>
+                  LA Vision
+                </h2>
+              </div>
+              <p style="text-align: justify;">
+                "🌟 Nuestro objetivo es ser reconocidos como el restaurante líder en la preservación de la comida tradicional, adaptándola a un estilo de vida saludable. 💚 Aspiramos a crear un espacio donde cada cliente se sienta valorado y donde la innovación y la calidad sean nuestras principales características, logrando así una experiencia culinaria inigualable y memorable. 🍴✨"
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <br>
+    <br>
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Contact Us
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Location
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +01 1234567890
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  demo@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              Feane
+            </a>
+            <p>
+              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+            </p>
+            <div class="footer_social">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Opening Hours
+          </h4>
+          <p>
+            Everyday
+          </p>
+          <p>
+            10.00 Am -10.00 Pm
+          </p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/">Free Html Templates</a><br><br>
+          &copy; <span id="displayYear"></span> Distributed By
+          <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'assetscli/js/jquery-3.4.1.min.js' %}"></script>
+  <!-- popper js -->
+  <script src="{% static 'assetscli/https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' %}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script src="{% static 'assetscli/js/bootstrap.js' %}"></script>
+  <!-- owl slider -->
+  <script src="{% static 'assetscli/https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js' %}">
+  </script>
+  <!-- isotope js -->
+  <script src="{% static 'assetscli/https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js' %}"></script>
+  <!-- nice select -->
+  <script src="{% static 'assetscli/https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js' %}"></script>
+  <!-- custom js -->
+  <script src="{% static 'assetscli/js/custom.js' %}"></script>
+  <!-- Google Map -->
+  <script src="{% static 'assetscli/https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap' %}">
+  </script>
+  <!-- End Google Map -->
+
+</body>
+
+</html>

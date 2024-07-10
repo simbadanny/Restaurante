@@ -1,0 +1,172 @@
+{% extends "./plantilla.html" %}
+{% block contenido %}
+{% load static %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Listado Detalles_Reservas</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="tbl_detalles_reservas" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>FECHA RESERVA</th>
+                                <th>CATEGORIA RESERVA</th>
+                                <th>ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for detalle_Reserva in detalle_Reservas %}
+                            <tr>
+                                <td>{{ detalle_Reserva.detalle_reserva_id }}</td>
+                                <td>{{ detalle_Reserva.reserva.fecha_reserva}}</td>
+                                <td>{{ detalle_Reserva.menu.categoria_menu }}</td>
+                                <td>
+                                  <a href="/editarDetalles_Reservas/{{detalle_Reserva.detalle_reserva_id}}" class="btn btn-warning">
+                                      <i class="fas fa-edit"></i>
+                                  </a>
+                                  <a href="javascript:void(0)" onclick="eliminarDetalles_Reservas('{{detalle_Reserva.detalle_reserva_id}}');" class="btn btn-danger">
+                                      <i class="fas fa-trash-alt"></i>
+                                  </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Agregar Detalles Ventas
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="/guardarDetalles_Reservas/" method="post" enctype="multipart/form-data" id="frm_nuevo_detallesr">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ingresar Detalle de Ventas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="reserva_id_reserva"><i class="fas fa-shopping-cart"></i> <b>Ventas:</b></label>
+                      <select class="form-control selectpicker" data-live-search="true" data-live-search-style="startsWith" name="reserva_id_reserva" id="reserva_id_reserva" required data-live-search-placeholder="Buscar categoría...">
+                        <option value="">Seleccione Total Ventas</option>
+                        {% for reserva in reservas %}
+                          <option value="{{ reserva.reserva_id }}">{{ reserva.fecha_reserva }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="menu_id_menu"><i class="fas fa-utensils"></i> <b>MENÚS:</b></label>
+                      <select class="form-control selectpicker" data-live-search="true" data-live-search-style="startsWith" name="menu_id_menu" id="menu_id_menu" required data-live-search-placeholder="Buscar proveedor...">
+                        <option value="">Seleccione El Menú</option>
+                        {% for menu in menus %}
+                          <option value="{{ menu.menu_id }}">{{ menu.categoria_menu }}</option>
+                        {% endfor %}
+                      </select>
+                  </div>
+                  </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#frm_nuevo_detallesr").validate({
+            rules: {
+                "reserva_id_reserva": {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 10 // Ajusta la longitud máxima según tus necesidades
+                },
+                "menu_id_menu": {
+                    required: true
+                }
+            },
+            messages: {
+                "reserva_id_reserva": {
+                    required: "Debe seleccionar la reserva",
+                    minlength: "El ID de reserva debe tener al menos 1 carácter",
+                    maxlength: "El ID de reserva no puede tener más de 10 caracteres"
+                },
+                "menu_id_menu": {
+                    required: "Debe seleccionar el menú"
+                }
+            }
+        });
+    });
+  </script>
+<script>
+function eliminarDetalles_Reservas(detalle_reserva_id) {
+    swal({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        buttons: {
+            cancel: {
+                visible: true,
+                text: 'No, cancelar',
+                className: 'btn btn-secondary'
+            },
+            confirm: {
+                text: 'Sí, eliminarlo',
+                className: 'btn btn-danger'
+            }
+        }
+    }).then((willDelete) => {
+        if (willDelete) {
+            window.location.href = '/eliminarDetalles_Reservas/' + detalle_reserva_id;
+        } else {
+            swal("¡El detalle Reserva de venta está seguro!", {
+                icon: "info",
+                buttons: {
+                    confirm: {
+                        className: 'btn btn-success'
+                    }
+                }
+            });
+        }
+    });
+}
+</script>
+
+  <script type="text/javascript">
+   //let table = new DataTable('#tbl_clientes');
+    $('#tbl_detalles_reservas').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+        {
+            extend: 'pdfHtml5',
+            messageTop: 'REPORTE DE PARTICIPANTES - DJANGO Y DATATABLES.'
+        },
+        'print',
+        'csv'
+      ],
+      language: {
+              url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+          }
+      });
+
+  </script>
+
+{% endblock %}
