@@ -1,0 +1,4 @@
+venv/
+Restaurante.db
+
+__pycache__/
